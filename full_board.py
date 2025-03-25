@@ -1,5 +1,4 @@
 from mini_board import MiniBoard
-from const import Tile
 
 class FullBoard:
     def __init__(self) -> None:
@@ -29,3 +28,10 @@ class FullBoard:
     
     def get_current(self) -> MiniBoard:
         return self.board[self.current_row][self.current_collumn]
+
+    def place(self, row: int, collumn: int, turn: int) -> bool:
+        if self.get_current().place(row, collumn, turn):
+            self.current_row = row
+            self.current_collumn = collumn
+            return True
+        return False

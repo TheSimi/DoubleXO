@@ -43,6 +43,7 @@ class MiniBoard:
             return False
         else:
             self.board[row][collumn] = turn
+            return True
     
     def check_win(self) -> bool:
         """
