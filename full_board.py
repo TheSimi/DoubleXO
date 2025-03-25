@@ -1,4 +1,5 @@
 from mini_board import MiniBoard
+from const import Tile
 
 class FullBoard:
     def __init__(self) -> None:
@@ -29,9 +30,24 @@ class FullBoard:
     def get_current(self) -> MiniBoard:
         return self.board[self.current_row][self.current_collumn]
 
-    def place(self, row: int, collumn: int, turn: int) -> bool:
+    def place_on_current_board(self, row: int, collumn: int, turn: int) -> bool:
+        if not self.get_current().won == Tile.EMPTY:
+            return False
         if self.get_current().place(row, collumn, turn):
             self.current_row = row
             self.current_collumn = collumn
             return True
         return False
+    
+    def change_current_board(self, row: int, collumn: int) -> bool:
+        if row < 0 or row > 2:
+            raise ValueError("row value must be between 0-2")
+        elif collumn < 0 or collumn > 2:
+            raise ValueError("collumn value must be between 0-2")
+        
+        if not self.board[row][collumn].wom == Tile.EMPTY:
+            return False
+        else:
+            self.current_row = row
+            self.current_collumn = collumn
+            return True
