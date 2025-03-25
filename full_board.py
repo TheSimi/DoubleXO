@@ -27,13 +27,13 @@ class FullBoard:
         final_str += str(self.get_current())
         return final_str
     
-    def get_current(self) -> MiniBoard:
+    def get_current_board(self) -> MiniBoard:
         return self.board[self.current_row][self.current_collumn]
 
     def place_on_current_board(self, row: int, collumn: int, turn: int) -> bool:
-        if not self.get_current().won == Tile.EMPTY:
+        if not self.get_current_board().won == Tile.EMPTY:
             return False
-        if self.get_current().place(row, collumn, turn):
+        if self.get_current_board().place(row, collumn, turn):
             self.current_row = row
             self.current_collumn = collumn
             return True
