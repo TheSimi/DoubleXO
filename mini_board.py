@@ -77,12 +77,3 @@ class MiniBoard:
             return True
         self.won = Tile.EMPTY
         return False
-
-test = MiniBoard()
-test.place(0, 2, 1)
-test.place(1, 1, 1)
-test.place(2, 0, 1)
-test.check_win()
-print(test)
-test.won = 0
-print(test)
