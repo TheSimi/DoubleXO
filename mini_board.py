@@ -12,23 +12,23 @@ class MiniBoard:
     def __repr__(self) -> str:
         match self.won:
             case Tile.EMPTY:
-                return f""" _____
+                return f""" _____ 
 |{Tile.num_to_char(self.board[0][0])}|{Tile.num_to_char(self.board[0][1])}|{Tile.num_to_char(self.board[0][2])}|
 |{Tile.num_to_char(self.board[1][0])}|{Tile.num_to_char(self.board[1][1])}|{Tile.num_to_char(self.board[1][2])}|
 |{Tile.num_to_char(self.board[2][0])}|{Tile.num_to_char(self.board[2][1])}|{Tile.num_to_char(self.board[2][2])}|
- ‾‾‾‾‾"""
+ ‾‾‾‾‾ """
             case Tile.PLAYER_X:
-                return f""" _____
+                return f""" _____ 
 |\\   /|
 |  |  |
 |/   \\|
- ‾‾‾‾‾"""
+ ‾‾‾‾‾ """
             case Tile.PLAYER_O:
-                return f""" _____
+                return f""" _____ 
 | --- |
 ||   ||
 | --- |
- ‾‾‾‾‾"""
+ ‾‾‾‾‾ """
 
     def place(self, row: int, collumn: int, turn: int) -> bool:
         #input check
