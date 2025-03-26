@@ -24,7 +24,7 @@ class FullBoard:
                 final_str += line
                 final_str += '\n'
         final_str += f"current board is ({self.current_row}, {self.current_collumn}):\n"
-        final_str += str(self.get_current())
+        final_str += str(self.get_current_board())
         return final_str
     
     def get_current_board(self) -> MiniBoard:
@@ -51,3 +51,27 @@ class FullBoard:
             self.current_row = row
             self.current_collumn = collumn
             return True
+    
+    def check_win(self) -> bool:
+        #check for 3 in a row
+        for row in range(3):
+            if (not self.board[row][0].won == Tile.EMPTY
+                and self.board[row][0].won == self.board[row][1].won
+                and self.board[row][0].won == self.board[row][2].won):
+                return True
+        #check for 3 in a collumn
+        for collumn in range(3):
+            if (not self.board[0][collumn].won == Tile.EMPTY
+                and self.board[0][collumn].won == self.board[1][collumn].won
+                and self.board[0][collumn].won == self.board[2][collumn].won):
+                return True
+        #check for 3 in a diagonal
+        if (not self.board[0][0].won == Tile.EMPTY
+            and self.board[0][0].won == self.board[1][1].won
+            and self.board[0][0].won == self.board[2][2].won):
+            return True
+        if (not self.board[0][2].won == Tile.EMPTY
+            and self.board[0][2].won == self.board[1][1].won
+            and self.board[0][2].won == self.board[2][0].won):
+            return True
+        return False
