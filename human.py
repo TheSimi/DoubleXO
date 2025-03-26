@@ -12,11 +12,11 @@ class Human(Player):
             successfully_chose = False
             while not successfully_chose:
                 row_str = input("Enter the board row you want to play in:\n")
-                while not row_str.isdigit() and int(row_str) > 2 and int(row_str) < 0:
+                while not row_str.isdigit() or int(row_str) > 2 or int(row_str) < 0:
                     row_str = input("Invalid input! Try agian:\n")
             
                 collumn_str = input("Enter the board collumn you want to play in:\n")
-                while not collumn_str.isdigit() and int(collumn_str) > 2 and int(collumn_str) < 0:
+                while not collumn_str.isdigit() or int(collumn_str) > 2 or int(collumn_str) < 0:
                     collumn_str = input("Invalid input! Try agian:\n")
             
                 successfully_placed = board.change_current_board(
@@ -27,11 +27,11 @@ class Human(Player):
         successfully_placed = False
         while not successfully_placed:
             row_str = input("Enter the row you want to play in:\n")
-            while not row_str.isdigit() and int(row_str) > 2 and int(row_str) < 0:
+            while not row_str.isdigit() or int(row_str) > 2 or int(row_str) < 0:
                 row_str = input("Invalid input! Try agian:\n")
             
             collumn_str = input("Enter the collumn you want to play in:\n")
-            while not collumn_str.isdigit() and int(collumn_str) > 2 and int(collumn_str) < 0:
+            while not collumn_str.isdigit() or int(collumn_str) > 2 or int(collumn_str) < 0:
                 collumn_str = input("Invalid input! Try agian:\n")
             
             successfully_placed = board.place_on_current_board(
