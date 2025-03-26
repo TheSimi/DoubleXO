@@ -2,6 +2,7 @@ from player import Player
 from human import Human
 from full_board import FullBoard
 from const import Tile
+from time import sleep
 
 def game(playerX: Player, playerO: Player, board: FullBoard):
     turn = True
@@ -19,6 +20,7 @@ def game(playerX: Player, playerO: Player, board: FullBoard):
         print("Player X won!")
     else:
         print("Player O won!")
+    sleep(3)
 
 def main():
     player1 = Human(Tile.PLAYER_X)

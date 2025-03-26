@@ -34,6 +34,7 @@ class FullBoard:
         if not self.get_current_board().won == Tile.EMPTY:
             return False
         if self.get_current_board().place(row, collumn, turn):
+            self.get_current_board().check_win()
             self.current_row = row
             self.current_collumn = collumn
             return True
@@ -45,7 +46,7 @@ class FullBoard:
         elif collumn < 0 or collumn > 2:
             raise ValueError("collumn value must be between 0-2")
         
-        if not self.board[row][collumn].wom == Tile.EMPTY:
+        if not self.board[row][collumn].won == Tile.EMPTY:
             return False
         else:
             self.current_row = row

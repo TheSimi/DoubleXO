@@ -19,7 +19,7 @@ class Human(Player):
                 while not collumn_str.isdigit() or int(collumn_str) > 2 or int(collumn_str) < 0:
                     collumn_str = input("Invalid input! Try agian:\n")
             
-                successfully_placed = board.change_current_board(
+                successfully_chose = board.change_current_board(
                     int(row_str),
                     int(collumn_str)
                 )
