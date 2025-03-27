@@ -78,3 +78,11 @@ class MiniBoard:
             return True
         self.won = Tile.EMPTY
         return False
+
+def copy_mini_board(original_mini_board: MiniBoard) -> MiniBoard:
+    new_mini_board = MiniBoard()
+    for i in range(3):
+        for j in range(3):
+            new_mini_board.board[i][j] = original_mini_board.board[i][j]
+    new_mini_board.won = original_mini_board.won
+    return new_mini_board

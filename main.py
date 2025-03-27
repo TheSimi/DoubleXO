@@ -1,5 +1,6 @@
 from player import Player
 from human import Human
+from simi_bot import SimiBot
 from full_board import FullBoard
 from const import Tile
 from time import sleep
@@ -24,7 +25,7 @@ def game(playerX: Player, playerO: Player, board: FullBoard):
 
 def main():
     player1 = Human(Tile.PLAYER_X)
-    player2 = Human(Tile.PLAYER_O)
+    player2 = SimiBot(Tile.PLAYER_O)
     board = FullBoard()
     game(player1, player2, board)
 

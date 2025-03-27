@@ -1,4 +1,4 @@
-from mini_board import MiniBoard
+from mini_board import MiniBoard, copy_mini_board
 from const import Tile
 
 class FullBoard:
@@ -76,3 +76,21 @@ class FullBoard:
             and self.board[0][2].won == self.board[2][0].won):
             return True
         return False
+
+def copy_board(original_board: FullBoard) -> FullBoard:
+    new_full_board = FullBoard()
+    #copy all the mini boards
+    new_board = [
+        [MiniBoard(), MiniBoard(), MiniBoard()],
+        [MiniBoard(), MiniBoard(), MiniBoard()],
+        [MiniBoard(), MiniBoard(), MiniBoard()]
+    ]
+    for i in range(3):
+        for j in range(3):
+            new_board[i][j] = copy_mini_board(original_board.board[i][j])
+    new_full_board.board = new_board
+    #copy other values
+    new_full_board.current_row = original_board.current_row
+    new_full_board.current_collumn = original_board.current_collumn
+    return new_full_board
+    
