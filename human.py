@@ -1,13 +1,13 @@
 from full_board import FullBoard
 from player import Player
-from const import Tile
+from const import EMPTY
 
 class Human(Player):
     def __init__(self, turn: int):
         super().__init__(turn)
     
     def play_turn(self, board: FullBoard):
-        if not board.get_current_board().won == Tile.EMPTY:
+        if not board.get_current_board().won == EMPTY:
             #choose a board to play on, and set it as current board
             successfully_chose = False
             while not successfully_chose:

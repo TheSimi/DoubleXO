@@ -5,7 +5,7 @@ Author: Simi
 
 from player import Player
 from full_board import FullBoard, copy_board
-from const import Tile
+from const import EMPTY, PLAYER_X, PLAYER_O
 
 DEFAULT_DEEPNESS = 3
 
@@ -39,7 +39,7 @@ class SimiBot(Player):
             pass
 
         try:
-            return possible_moves.index(Tile.EMPTY)
+            return possible_moves.index(EMPTY)
         except ValueError:
             pass
 
@@ -53,7 +53,7 @@ class SimiBot(Player):
         if board.check_win():
             return self.opposite_turn(turn)
         if deepness == 0:
-            return Tile.EMPTY
+            return EMPTY
         possible_moves = [None, None, None, None, None, None, None, None, None]
         for i in range(9):
             board_copy = copy_board(board)
@@ -67,7 +67,7 @@ class SimiBot(Player):
 
     @staticmethod
     def opposite_turn(turn):
-        if turn == Tile.PLAYER_X:
-            return Tile.PLAYER_O
+        if turn == PLAYER_X:
+            return PLAYER_O
         else:
-            return Tile.PLAYER_X
+            return PLAYER_X

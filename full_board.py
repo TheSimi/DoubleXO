@@ -1,5 +1,5 @@
 from mini_board import MiniBoard, copy_mini_board
-from const import Tile
+from const import EMPTY
 
 class FullBoard:
     def __init__(self) -> None:
@@ -31,7 +31,7 @@ class FullBoard:
         return self.board[self.current_row][self.current_collumn]
 
     def place_on_current_board(self, row: int, collumn: int, turn: int) -> bool:
-        if not self.get_current_board().won == Tile.EMPTY:
+        if not self.get_current_board().won == EMPTY:
             return False
         if self.get_current_board().place(row, collumn, turn):
             self.get_current_board().check_win()
@@ -46,7 +46,7 @@ class FullBoard:
         elif collumn < 0 or collumn > 2:
             raise ValueError("collumn value must be between 0-2")
         
-        if not self.board[row][collumn].won == Tile.EMPTY:
+        if not self.board[row][collumn].won == EMPTY:
             return False
         else:
             self.current_row = row
@@ -56,22 +56,22 @@ class FullBoard:
     def check_win(self) -> bool:
         #check for 3 in a row
         for row in range(3):
-            if (not self.board[row][0].won == Tile.EMPTY
+            if (not self.board[row][0].won == EMPTY
                 and self.board[row][0].won == self.board[row][1].won
                 and self.board[row][0].won == self.board[row][2].won):
                 return True
         #check for 3 in a collumn
         for collumn in range(3):
-            if (not self.board[0][collumn].won == Tile.EMPTY
+            if (not self.board[0][collumn].won == EMPTY
                 and self.board[0][collumn].won == self.board[1][collumn].won
                 and self.board[0][collumn].won == self.board[2][collumn].won):
                 return True
         #check for 3 in a diagonal
-        if (not self.board[0][0].won == Tile.EMPTY
+        if (not self.board[0][0].won == EMPTY
             and self.board[0][0].won == self.board[1][1].won
             and self.board[0][0].won == self.board[2][2].won):
             return True
-        if (not self.board[0][2].won == Tile.EMPTY
+        if (not self.board[0][2].won == EMPTY
             and self.board[0][2].won == self.board[1][1].won
             and self.board[0][2].won == self.board[2][0].won):
             return True

@@ -1,11 +1,11 @@
 from abc import ABC
 from full_board import FullBoard
-from const import Tile
+from const import PLAYER_X, PLAYER_O
 
 class Player(ABC):
     def __init__(self, turn: int):
-        if not turn == Tile.PLAYER_X and not turn == Tile.PLAYER_O:
-            raise ValueError(f"turn must be either {Tile.PLAYER_X} or {Tile.PLAYER_O}")
+        if not turn == PLAYER_X and not turn == PLAYER_O:
+            raise ValueError(f"turn must be either {PLAYER_X} or {PLAYER_O}")
         
         self.turn = turn
     
