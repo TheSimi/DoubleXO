@@ -10,20 +10,19 @@ class MiniBoard:
         self.won = EMPTY
     
     def __repr__(self) -> str:
-        match self.won:
-            case int(EMPTY):
-                return f""" _____ 
+        if self.won == EMPTY:
+            return f""" _____ 
 |{self.num_to_char(self.board[0][0])}|{self.num_to_char(self.board[0][1])}|{self.num_to_char(self.board[0][2])}|
 |{self.num_to_char(self.board[1][0])}|{self.num_to_char(self.board[1][1])}|{self.num_to_char(self.board[1][2])}|
 |{self.num_to_char(self.board[2][0])}|{self.num_to_char(self.board[2][1])}|{self.num_to_char(self.board[2][2])}|
  ‾‾‾‾‾ """
-            case int(PLAYER_X):
+        if self.won == PLAYER_X:
                 return f""" _____ 
 |\\   /|
 |  |  |
 |/   \\|
  ‾‾‾‾‾ """
-            case int(PLAYER_O):
+        if self.won == PLAYER_O:
                 return f""" _____ 
 | --- |
 ||   ||
@@ -81,16 +80,15 @@ class MiniBoard:
     
     @staticmethod
     def num_to_char(num: int):
-        match num:
-            case int(EMPTY):
-                return '-'
-            case int(PLAYER_X):
-                return 'X'
-            case int(PLAYER_O):
-                return 'O'
-            case _:
-                raise ValueError(f"A tile value must be one of these: \
-                    {EMPTY}, {PLAYER_X}, {PLAYER_O}")
+        if num == EMPTY:
+            return '-'
+        if num == PLAYER_X:
+            return 'X'
+        if num == PLAYER_O:
+            return 'O'
+        else:
+            raise ValueError(f"A tile value must be one of these: \
+            {EMPTY}, {PLAYER_X}, {PLAYER_O}")
 
 def copy_mini_board(original_mini_board: MiniBoard) -> MiniBoard:
     new_mini_board = MiniBoard()
