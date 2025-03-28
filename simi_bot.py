@@ -25,7 +25,7 @@ class SimiBot(Player):
     
     def play_turn(self, board: FullBoard):
         print("Calculating best move...")
-        move = self.find_best_move(board, self.turn)
+        move = self.find_best_move(board, self.turn, origin=True)
         self.play_move(board, move, self.turn)
        
     def play_move(self, board: FullBoard, move_index: int, turn: int) -> bool:
@@ -34,12 +34,20 @@ class SimiBot(Player):
         return board.place_on_current_board(row, collumn, turn)
 
     def pick_move(self, possible_moves: list, turn: int) -> int:
+        #if can force win
         if turn == PLAYER_X and len(possible_moves[X_WINS_MOVES]) > 0:
             return random.choice(possible_moves[X_WINS_MOVES])
         elif turn == PLAYER_O and len(possible_moves[O_WINS_MOVES]) > 0:
             return random.choice(possible_moves[O_WINS_MOVES])
+        #if can avoid forced loss
         elif len(possible_moves[UNKNOWN_MOVES]) > 0:
             return random.choice(possible_moves[UNKNOWN_MOVES])
+        #no choice...
+        elif turn == PLAYER_X and len(possible_moves[O_WINS_MOVES]) > 0:
+            return random.choice(possible_moves[O_WINS_MOVES])
+        elif turn == PLAYER_O and len(possible_moves[X_WINS_MOVES]) > 0:
+            return random.choice(possible_moves[X_WINS_MOVES])
+        #wait, what?
         else:
             raise Exception("No legal move to play!")
     
@@ -53,12 +61,31 @@ class SimiBot(Player):
         else:
             raise Exception("No legal move to play!")    
 
-    def find_best_move(self, board: FullBoard, turn: int, deepness: int = DEFAULT_DEEPNESS):
+    def find_best_move(self, board: FullBoard, turn: int, deepness: int = DEFAULT_DEEPNESS, origin: bool = False):
         if deepness == 0:
             return UNKNOWN_MOVES
         if board.get_current_board().check_win():
-            #this board is won, do something different ig
-            pass
+            if origin:
+                possible_boards = [[], [], [], []]
+                for i in range(9):
+                    board_copy = copy_board(board)
+                    board_status = ILEAGAL_MOVES
+                    if board_copy.change_current_board(i // 3, i % 3):
+                        board_status = self.find_best_move(board_copy, turn, deepness=deepness)
+                    possible_boards[board_status].append(i)
+                board_pick = self.pick_move(possible_boards, turn)
+                board.change_current_board(board_pick // 3, board_pick % 3)
+                print(f"Playing on board ({board_pick //3}, {board_pick % 3})")
+                return self.find_best_move(board, turn, deepness=deepness, origin=True)
+            else:
+                possible_boards = [[], [], [], []]
+                for i in range(9):
+                    board_copy = copy_board(board)
+                    board_status = ILEAGAL_MOVES
+                    if board_copy.change_current_board(i // 3, i % 3):
+                        board_status = self.find_best_move(board_copy, turn, deepness=deepness)
+                    possible_boards[board_status].append(i)
+                return self.pick_move_type(possible_boards, turn)
         else:
             #TODO - spliting into different functions
             possible_moves = [[], [], [], []]
@@ -75,10 +102,10 @@ class SimiBot(Player):
                         move_status = self.find_best_move(
                             board_copy,
                             self.opposite_turn(turn),
-                            deepness - 1
+                            deepness=deepness - 1
                         )
                 possible_moves[move_status].append(i)
-            if deepness == DEFAULT_DEEPNESS:
+            if origin:
                 return self.pick_move(possible_moves, turn)
             else:
                 return self.pick_move_type(possible_moves, turn)
